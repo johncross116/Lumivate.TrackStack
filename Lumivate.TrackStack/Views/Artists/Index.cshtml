@@ -19,7 +19,6 @@
         <tr>
             <th>Name</th>
             <th>Genre</th>
-            <th>Songs</th>
             <th></th>
         </tr>
     </thead>
@@ -28,7 +27,6 @@
         @* For each artist, create a table row with: *@
         @*   - artist.Name *@
         @*   - artist.Genre *@
-        @*   - artist.Songs?.Count (number of songs) *@
         @*   - Links for Details, Edit, and Delete *@
         @*     Hint: <a asp-action="Details" asp-route-id="@artist.Id">Details</a> *@
         @foreach (var artist in Model)
@@ -36,7 +34,6 @@
             <tr>
                 <td>@artist.Name</td>
                 <td>@artist.Genre</td>
-                <td>@artist.Songs?.Count</td>
                 <td>
                     <a asp-action="Details" asp-route-id="@artist.Id">Details</a> |
                     <a asp-action="Edit" asp-route-id="@artist.Id">Edit</a> |
