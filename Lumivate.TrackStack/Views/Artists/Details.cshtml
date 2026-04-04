@@ -1,18 +1,23 @@
 @* TODO: Add a @model directive for a single Artist *@
 @* Hint: @model Lumivate.TrackStack.Models.Artist *@
+@model Lumivate.TrackStack.Models.Artist
 
 @{
     ViewData["Title"] = "Artist Details";
 }
 
-<h1>@* TODO: Display Model.Name here *@</h1>
+<h1>@* TODO: Display Model.Name here *@
+    @Model.Name
+</h1>
 
 <div class="card mb-4">
     <div class="card-body">
         <h5 class="card-title">Artist Info</h5>
         <dl class="row">
             <dt class="col-sm-3">Genre</dt>
-            <dd class="col-sm-9">@* TODO: Display Model.Genre *@</dd>
+            <dd class="col-sm-9">@* TODO: Display Model.Genre *@
+                @Model.Genre
+            </dd>
         </dl>
     </div>
 </div>
@@ -24,10 +29,40 @@
 @*   - Duration (you can display DurationSeconds, or format as mm:ss) *@
 @*   - A link to /Songs/Details for each song *@
 @* If there are no songs, display a message like "No songs found for this artist." *@
+@if (Model.Songs != null && Model.Songs.Count > 0)
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Duration (seconds)</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var song in Model.Songs)
+            {
+                <tr>
+                    <td>@song.Title</td>
+                    <td>@song.DurationSeconds</td>
+                    <td>
+                        <a asp-controller="Songs" asp-action="Details" asp-route-id="@song.Id">Details</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No songs found for this artist.</p>
+}
 
 <div class="mt-3">
     @* TODO: Add Edit, Delete, and Back to List links *@
     @* Hint: <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Edit</a> *@
     @* Hint: <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Delete</a> *@
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Edit</a>
+    <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Delete</a>
     <a asp-action="Index" class="btn btn-secondary">Back to List</a>
 </div>

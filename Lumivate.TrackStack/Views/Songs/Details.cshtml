@@ -1,10 +1,13 @@
 @* TODO: Add a @model directive for a single Song *@
+@model Lumivate.TrackStack.Models.Song
 
 @{
     ViewData["Title"] = "Song Details";
 }
 
-<h1>@* TODO: Display Model.Title *@</h1>
+<h1>@* TODO: Display Model.Title *@
+    @Model.Title
+</h1>
 
 <div class="card mb-4">
     <div class="card-body">
@@ -14,9 +17,12 @@
                 @* TODO: Display the artist name *@
                 @* Bonus: Make it a link to the artist's Details page *@
                 @* Hint: <a asp-controller="Artists" asp-action="Details" asp-route-id="@Model.ArtistId">@Model.Artist?.Name</a> *@
+                <a asp-controller="Artists" asp-action="Details" asp-route-id="@Model.ArtistId">@Model.Artist?.Name</a>
             </dd>
             <dt class="col-sm-3">Duration</dt>
-            <dd class="col-sm-9">@* TODO: Display Model.DurationSeconds *@</dd>
+            <dd class="col-sm-9">@* TODO: Display Model.DurationSeconds *@
+                @Model.DurationSeconds
+            </dd>
         </dl>
     </div>
 </div>
@@ -25,5 +31,7 @@
     @* TODO: Add Edit, Delete, and Back to List links *@
     @* Hint: <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Edit</a> *@
     @* Hint: <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Delete</a> *@
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Edit</a>
+    <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Delete</a>
     <a asp-action="Index" class="btn btn-secondary">Back to List</a>
 </div>

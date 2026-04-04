@@ -22,7 +22,57 @@
 // Hint: You have already done this for TurtlesController.
 // The only difference is the service interface name.
 
+using Lumivate.TrackStack.Controllers;
+using Lumivate.TrackStack.Models;
+using Lumivate.TrackStack.Services;
+using Microsoft.AspNetCore.Mvc;
+using Moq;
+using Xunit;
+
 namespace Lumivate.TrackStack.Tests
 {
     // Your test class goes here
+
+    public class ArtistsControllerTests
+    {
+        private readonly Mock<IArtistService> _mockService;
+        private readonly ArtistsController _controller;
+
+        public ArtistsControllerTests()
+        {
+            _mockService = new Mock<IArtistService>();
+            _controller = new ArtistsController(_mockService.Object);
+        }
+
+        [Fact]
+        public void Index_ReturnsViewResult()
+        {
+            _mockService.Setup(s => s.GetAllArtists()).Returns(new List<Artist>());
+
+            var result = _controller.Index();
+
+            Assert.IsType<ViewResult>(result);
+        }
+
+        [Fact]
+        public void Details_WithValidId_ReturnsViewResult()
+        {
+            var artist = new Artist { Id = 1, Name = "Test Artist", Genre = "Rock" };
+            _mockService.Setup(s => s.GetArtistById(1)).Returns(artist);
+
+            var result = _controller.Details(1);
+
+            Assert.IsType<ViewResult>(result);
+        }
+
+        [Fact]
+        public void Details_WithInvalidId_ReturnsNotFound()
+        {
+            _mockService.Setup(s => s.GetArtistById(999)).Returns((Artist?)null);
+
+            var result = _controller.Details(999);
+
+            Assert.IsType<NotFoundResult>(result);
+        }
+    }
 }

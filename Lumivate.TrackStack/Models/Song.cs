@@ -13,4 +13,13 @@ namespace Lumivate.TrackStack.Models
     // EF Core will automatically create a foreign key constraint in the database.
     //
     // Hint: This is similar to how OrderItem had an OrderId foreign key in the Turtle Store.
+
+    public class Song
+    {
+        public int Id { get; set; }
+        public string Title { get; set; } = string.Empty;
+        public int DurationSeconds { get; set; }
+        public int ArtistId { get; set; }
+        public Artist? Artist { get; set; }
+    }
 }

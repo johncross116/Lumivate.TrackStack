@@ -1,3 +1,5 @@
+using Lumivate.TrackStack.Models;
+using Lumivate.TrackStack.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Lumivate.TrackStack.Controllers
@@ -32,4 +34,76 @@ namespace Lumivate.TrackStack.Controllers
     //
     // Hint: This is the same CRUD pattern as TurtlesController.
     // The Details page is extra useful here because it shows the artist's songs.
+
+    public class ArtistsController : Controller
+    {
+        private readonly IArtistService _artistService;
+
+        public ArtistsController(IArtistService artistService)
+        {
+            _artistService = artistService;
+        }
+
+        public IActionResult Index()
+        {
+            var artists = _artistService.GetAllArtists();
+            return View(artists);
+        }
+
+        public IActionResult Details(int id)
+        {
+            var artist = _artistService.GetArtistById(id);
+            if (artist == null)
+            {
+                return NotFound();
+            }
+            return View(artist);
+        }
+
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Create(Artist artist)
+        {
+            _artistService.AddArtist(artist);
+            return RedirectToAction("Index");
+        }
+
+        public IActionResult Edit(int id)
+        {
+            var artist = _artistService.GetArtistById(id);
+            if (artist == null)
+            {
+                return NotFound();
+            }
+            return View(artist);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(Artist artist)
+        {
+            _artistService.UpdateArtist(artist);
+            return RedirectToAction("Index");
+        }
+
+        public IActionResult Delete(int id)
+        {
+            var artist = _artistService.GetArtistById(id);
+            if (artist == null)
+            {
+                return NotFound();
+            }
+            return View(artist);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        public IActionResult DeleteConfirmed(int id)
+        {
+            _artistService.DeleteArtist(id);
+            return RedirectToAction("Index");
+        }
+    }
 }
