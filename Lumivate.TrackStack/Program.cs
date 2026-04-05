@@ -1,3 +1,7 @@
+using Lumivate.TrackStack.Data;
+using Lumivate.TrackStack.Services;
+using Microsoft.EntityFrameworkCore;
+
 namespace Lumivate.TrackStack
 {
     public class Program
@@ -17,10 +21,16 @@ namespace Lumivate.TrackStack
             // builder.Services.AddDbContext<TrackStackContext>(options =>
             //     options.UseSqlServer(builder.Configuration.GetConnectionString("TrackStackConnection")));
 
+            builder.Services.AddDbContext<TrackStackContext>(options =>
+                options.UseSqlServer(builder.Configuration.GetConnectionString("TrackStackConnection")));
+
             // TODO: Register your services with DI
             //   builder.Services.AddScoped<IArtistService, ArtistService>();
             //   builder.Services.AddScoped<ISongService, SongService>();
             // You will need: using Lumivate.TrackStack.Services;
+
+            builder.Services.AddScoped<IArtistService, ArtistService>();
+            builder.Services.AddScoped<ISongService, SongService>();
 
             var app = builder.Build();
 

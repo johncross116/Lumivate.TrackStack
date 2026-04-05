@@ -1,5 +1,6 @@
 @* TODO: Add a @model directive for a List of Song *@
 @* Hint: @model List<Lumivate.TrackStack.Models.Song> *@
+@model List<Lumivate.TrackStack.Models.Song>
 
 @{
     ViewData["Title"] = "Songs";
@@ -9,6 +10,7 @@
 
 <p>
     @* TODO: Add an anchor tag helper that links to the Create action *@
+    <a asp-action="Create" class="btn btn-primary">Add New Song</a>
 </p>
 
 <table class="table table-striped">
@@ -27,5 +29,18 @@
         @*   - song.Artist?.Name (the artist's name via navigation property) *@
         @*   - song.DurationSeconds (display as-is, or format as mm:ss for a challenge) *@
         @*   - Links for Details, Edit, and Delete *@
+        @foreach (var song in Model)
+        {
+            <tr>
+                <td>@song.Title</td>
+                <td>@song.Artist?.Name</td>
+                <td>@song.DurationSeconds</td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@song.Id">Details</a> |
+                    <a asp-action="Edit" asp-route-id="@song.Id">Edit</a> |
+                    <a asp-action="Delete" asp-route-id="@song.Id">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

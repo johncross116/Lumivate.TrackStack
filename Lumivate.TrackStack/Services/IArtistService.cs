@@ -1,3 +1,5 @@
+using Lumivate.TrackStack.Models;
+
 namespace Lumivate.TrackStack.Services
 {
     // TODO: Create the IArtistService interface
@@ -12,4 +14,13 @@ namespace Lumivate.TrackStack.Services
     // Don't forget: you'll need a using statement for Lumivate.TrackStack.Models
     //
     // Hint: This is the same pattern as ITurtleService from the Turtle Store.
+
+    public interface IArtistService
+    {
+        List<Artist> GetAllArtists();
+        Artist? GetArtistById(int id);
+        void AddArtist(Artist artist);
+        void UpdateArtist(Artist artist);
+        void DeleteArtist(int id);
+    }
 }

@@ -1,5 +1,6 @@
 @* TODO: Add a @model directive for a single Song *@
 @* Hint: @model Lumivate.TrackStack.Models.Song *@
+@model Lumivate.TrackStack.Models.Song
 
 @{
     ViewData["Title"] = "Add New Song";
@@ -13,10 +14,12 @@
             <div class="mb-3">
                 <label class="form-label">Title</label>
                 @* TODO: Add an input tag helper for Title *@
+                <input asp-for="Title" class="form-control" />
             </div>
             <div class="mb-3">
                 <label class="form-label">Duration (seconds)</label>
                 @* TODO: Add an input tag helper for DurationSeconds *@
+                <input asp-for="DurationSeconds" class="form-control" />
             </div>
             <div class="mb-3">
                 <label class="form-label">Artist</label>
@@ -32,8 +35,16 @@
                     }
                 </select>
                 *@
+                <select asp-for="ArtistId" class="form-select">
+                    <option value="">-- Select an Artist --</option>
+                    @foreach (var artist in ViewBag.Artists)
+                    {
+                        <option value="@artist.Id">@artist.Name</option>
+                    }
+                </select>
             </div>
             @* TODO: Add a submit button *@
+            <button type="submit" class="btn btn-primary">Create</button>
             <a asp-action="Index" class="btn btn-secondary">Cancel</a>
         </form>
     </div>

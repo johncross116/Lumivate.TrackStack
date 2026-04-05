@@ -1,4 +1,6 @@
+using Lumivate.TrackStack.Data;
 using Lumivate.TrackStack.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Lumivate.TrackStack.Services
 {
@@ -17,4 +19,53 @@ namespace Lumivate.TrackStack.Services
     //
     // Remember: This is the same pattern as TurtleService, but GetArtistById
     // needs .Include() because of the one-to-many relationship with Songs.
+
+    public class ArtistService : IArtistService
+    {
+        private readonly TrackStackContext _context;
+
+        public ArtistService(TrackStackContext context)
+        {
+            _context = context;
+        }
+
+        public List<Artist> GetAllArtists()
+        {
+            return _context.Artists.ToList();
+        }
+
+        public Artist? GetArtistById(int id)
+        {
+            return _context.Artists
+                .Include(a => a.Songs)
+                .FirstOrDefault(a => a.Id == id);
+        }
+
+        public void AddArtist(Artist artist)
+        {
+            _context.Artists.Add(artist);
+            _context.SaveChanges();
+        }
+
+        public void UpdateArtist(Artist artist)
+        {
+            var existing = _context.Artists.Find(artist.Id);
+            if (existing != null)
+            {
+                existing.Name = artist.Name;
+                existing.Genre = artist.Genre;
+                _context.SaveChanges();
+            }
+        }
+
+        public void DeleteArtist(int id)
+        {
+            var artist = _context.Artists.Find(id);
+            if (artist != null)
+            {
+                _context.Artists.Remove(artist);
+                _context.SaveChanges();
+            }
+        }
+    }
 }

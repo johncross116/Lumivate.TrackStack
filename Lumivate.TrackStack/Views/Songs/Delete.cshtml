@@ -1,5 +1,6 @@
 @* TODO: Add a @model directive for a single Song *@
 @* Hint: @model Lumivate.TrackStack.Models.Song *@
+@model Lumivate.TrackStack.Models.Song
 
 @{
     ViewData["Title"] = "Delete Song";
@@ -15,16 +16,25 @@
     <div class="card-body">
         <dl class="row">
             <dt class="col-sm-3">Title</dt>
-            <dd class="col-sm-9">@* TODO: Display Model.Title *@</dd>
+            <dd class="col-sm-9">@* TODO: Display Model.Title *@
+                @Model.Title
+            </dd>
             <dt class="col-sm-3">Artist</dt>
-            <dd class="col-sm-9">@* TODO: Display Model.Artist?.Name *@</dd>
+            <dd class="col-sm-9">@* TODO: Display Model.Artist?.Name *@
+                @Model.Artist?.Name
+            </dd>
             <dt class="col-sm-3">Duration</dt>
-            <dd class="col-sm-9">@* TODO: Display Model.DurationSeconds *@</dd>
+            <dd class="col-sm-9">@* TODO: Display Model.DurationSeconds *@
+                @Model.DurationSeconds
+            </dd>
         </dl>
     </div>
 </div>
 
 <form asp-action="Delete" method="post">
     @* TODO: Add a hidden input for Model.Id *@
+    <input type="hidden" asp-for="Id" />
     @* TODO: Add a Delete button and a Cancel link *@
+    <button type="submit" class="btn btn-danger">Delete</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
 </form>
