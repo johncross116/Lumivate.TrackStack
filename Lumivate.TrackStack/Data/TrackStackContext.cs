@@ -19,11 +19,11 @@ namespace Lumivate.TrackStack.Data
     //        base.OnModelCreating(modelBuilder);
     //        // ... paste seed data here ...
     //    }
-
-    // 4. After setting up the DbContext, run the migration commands in the Package Manager Console
-    //    (Tools > NuGet Package Manager > Package Manager Console):
-    //      Add-Migration InitialCreate
-    //      Update-Database
+    //
+    // 4. After setting up the DbContext, run the migration commands from
+    //    your IDE's terminal (View > Terminal in Visual Studio or VS Code):
+    //      dotnet ef migrations add InitialCreate
+    //      dotnet ef database update
 
     public class TrackStackContext : DbContext
     {
